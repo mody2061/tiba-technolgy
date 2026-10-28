@@ -1,0 +1,53 @@
+:root{--maroon:#7b1e2b;--maroon-dark:#561520;--gold:#b58a2e;--ink:#1f1f1f;--muted:#6b6b6b;--paper:#faf8f5;--line:#ddd6cc;--ok:#2d6a3e;--error:#b3261e}
+*{box-sizing:border-box;margin:0}
+body{font-family:"Cairo","Segoe UI",Tahoma,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh}
+.top{background:var(--maroon);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 28px;border-bottom:4px solid var(--gold)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700}
+.top img{height:44px;background:#fff;border-radius:6px;padding:3px}
+.top nav a{color:#fff;text-decoration:none;font-weight:600;margin-left:18px}
+.top nav a:hover{text-decoration:underline}
+main{max-width:960px;margin:0 auto;padding:32px 20px}
+h1{font-size:1.6rem}.sub{color:var(--muted);margin:4px 0 24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px;color:inherit;text-decoration:none;display:block;margin-bottom:18px}
+.grid .card{margin-bottom:0}
+a.card:hover{border-color:var(--maroon);box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.card h2{font-size:1.15rem;margin-bottom:6px;color:var(--maroon)}
+.badge{display:inline-block;padding:2px 12px;border-radius:99px;font-size:.85rem;font-weight:700}
+.on{background:#e3f1e7;color:var(--ok)}.off{background:#f6e3e1;color:var(--error)}
+.center{text-align:center}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-size:.85rem}
+input.scan{width:100%;font:inherit;font-size:1.1rem;padding:14px;border:2px solid var(--line);border-radius:8px;letter-spacing:.08em}
+input.scan:focus{outline:3px solid var(--gold);border-color:var(--gold)}
+.switch{position:relative;width:64px;height:34px;display:inline-block}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#bbb;border-radius:34px;cursor:pointer;transition:.2s}
+.slider::before{content:"";position:absolute;width:26px;height:26px;left:4px;top:4px;background:#fff;border-radius:50%;transition:.2s}
+.switch input:checked+.slider{background:var(--ok)}
+.switch input:checked+.slider::before{transform:translateX(30px)}
+.switch input:focus-visible+.slider{outline:3px solid var(--gold)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.msg{margin:12px 0;min-height:1.5em;font-weight:600}.msg.ok{color:var(--ok)}.msg.error{color:var(--error)}
+
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:12px}
+input.fld{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);width:100%}
+input.fld:focus-visible,.btn:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+.btn{font:inherit;font-weight:700;border:0;border-radius:6px;background:var(--maroon);color:#fff;padding:11px 20px;cursor:pointer}
+.btn:hover{background:var(--maroon-dark)}.btn.small{padding:5px 12px;font-size:.85rem;background:var(--error)}
+.idcard{width:340px;max-width:100%;margin:16px auto 4px;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.14);text-align:center}
+.idhead{background:var(--maroon);color:#fff;display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:4px solid var(--gold);text-align:left}
+.idhead img{height:40px;background:#fff;border-radius:6px;padding:2px}
+.idhead b{display:block;font-size:.95rem;line-height:1.2}.idhead small{color:#f0dede}
+.idbody{padding:18px 16px 14px;color:#1f1f1f}
+.idname{font-size:1.25rem;font-weight:700}.idfac{color:#6b6b6b;margin-bottom:14px}
+.barbox{border:2px dashed #d9cfc0;border-radius:10px;padding:12px 8px 8px}
+.barbox svg{max-width:100%;height:auto}
+.idnum{font-family:"Courier New",monospace;font-size:1.15rem;letter-spacing:.22em;margin-top:6px}
+.idfoot{height:10px;background:repeating-linear-gradient(90deg,var(--maroon) 0 14px,var(--gold) 14px 28px)}
+
+.barwrap{background:#fff;display:inline-block;border-radius:10px;padding:14px 16px;max-width:100%;overflow-x:auto;border:1px solid var(--line)}
+.barwrap svg{max-width:100%;height:auto}
+details.card summary{cursor:pointer;font-weight:700;color:var(--maroon)}
+#reader{max-width:360px;margin:14px auto}

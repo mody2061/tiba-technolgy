@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login | Thebes Technological University</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --maroon: #7b1e2b;
+    --maroon-dark: #561520;
+    --gold: #b58a2e;
+    --ink: #1f1f1f;
+    --muted: #6b6b6b;
+    --paper: #faf8f5;
+    --line: #ddd6cc;
+    --error: #b3261e;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font-family: "Cairo", "Segoe UI", Tahoma, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .side {
+    background: var(--maroon);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 56px;
+  }
+  .side::before {
+    content: "";
+    position: absolute;
+    top: 50%; left: -8%;
+    width: 70%; aspect-ratio: 1;
+    background: var(--gold);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    transform: translateY(-62%);
+    opacity: .92;
+  }
+  .side::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 6%;
+    width: 52%; aspect-ratio: 1;
+    background: var(--maroon-dark);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    transform: translateY(-62%);
+  }
+  .side h2, .side p { position: relative; z-index: 1; }
+  .side h2 { font-size: 2rem; line-height: 1.25; font-weight: 700; max-width: 14ch; }
+  .side p { margin-top: 10px; color: #f0dede; max-width: 34ch; }
+  main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+  }
+  .card { width: 100%; max-width: 380px; }
+  .logo { width: 220px; max-width: 70%; display: block; margin: 0 auto 8px; mix-blend-mode: multiply; }
+  h1 { font-size: 1.5rem; font-weight: 700; text-align: center; }
+  .sub { text-align: center; color: var(--muted); margin: 4px 0 28px; }
+  label { display: block; font-weight: 600; margin-bottom: 6px; }
+  .field { margin-bottom: 18px; }
+  .input-wrap { position: relative; }
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    font: inherit;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--ink);
+  }
+  input:focus-visible, button:focus-visible, a:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 1px;
+  }
+  input[aria-invalid="true"] { border-color: var(--error); }
+  .toggle {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    background: none; border: 0; color: var(--maroon); font: inherit; font-weight: 600;
+    padding: 6px 8px; cursor: pointer;
+  }
+  .err { color: var(--error); font-size: .875rem; margin-top: 6px; min-height: 1.2em; }
+  .row { display: flex; justify-content: space-between; align-items: center; margin: 4px 0 22px; font-size: .9rem; }
+  .row label { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 400; }
+  .row a { color: var(--maroon); font-weight: 600; text-decoration: none; }
+  .row a:hover { text-decoration: underline; }
+  .submit {
+    width: 100%;
+    font: inherit; font-weight: 700;
+    padding: 13px;
+    border: 0; border-radius: 6px;
+    background: var(--maroon); color: #fff;
+    cursor: pointer;
+  }
+  .submit:hover { background: var(--maroon-dark); }
+  .submit:disabled { opacity: .6; cursor: wait; }
+  .form-msg { margin-top: 14px; text-align: center; font-size: .9rem; min-height: 1.3em; }
+  .form-msg.error { color: var(--error); }
+  .form-msg.ok { color: #2d6a3e; }
+  .register {
+    display: block; text-align: center; margin-top: 12px;
+    padding: 12px; border: 2px solid var(--maroon); border-radius: 6px;
+    color: var(--maroon); font-weight: 700; text-decoration: none;
+  }
+  .register:hover { background: var(--maroon); color: #fff; }
+  .foot { margin-top: 28px; text-align: center; font-size: .8rem; color: var(--muted); }
+  @media (max-width: 800px) {
+    body { grid-template-columns: 1fr; }
+    .side { display: none; }
+  }
+  .tabs { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 22px; }
+  .tab { flex: 1; font: inherit; font-weight: 700; padding: 10px; border: 0; background: #fff; color: var(--maroon); cursor: pointer; }
+  .tab.act { background: var(--maroon); color: #fff; }
+</style>
+</head>
+<body>
+
+<aside class="side" aria-hidden="true">
+  <h2>جامعة طيبة التكنولوجية</h2>
+  <p>Sign in to access your courses, grades, and university services.</p>
+</aside>
+
+<main>
+  <div class="card">
+    <img class="logo" src="ttu-logo.jpg" alt="Thebes Technological University">
+    <h1>Student login</h1>
+    <p class="sub">تسجيل الدخول</p>
+
+    <div class="tabs" role="tablist" aria-label="Login type">
+      <button type="button" class="tab act" data-mode="student" role="tab" aria-selected="true">Student</button>
+      <button type="button" class="tab" data-mode="admin" role="tab" aria-selected="false">Admin</button>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="uid">National ID</label>
+        <input type="text" id="uid" maxlength="14" pattern="[0-9]{14}" inputmode="numeric" autocomplete="off" placeholder="Enter ID" required>
+        <div class="err" id="uidErr" role="alert"></div>
+      </div>
+
+      <div class="field">
+        <label for="pw">Password</label>
+        <div class="input-wrap">
+          <input type="password" id="pw" name="pw" autocomplete="current-password" placeholder="Enter Password" required>
+          <button type="button" class="toggle" id="toggle" aria-label="Show password" aria-pressed="false">Show</button>
+        </div>
+        <div class="err" id="pwErr" role="alert"></div>
+      </div>
+
+      <div class="row">
+        <label><input type="checkbox" id="remember"> Keep me signed in</label>
+        <a href="#">Forgot password?</a>
+      </div>
+
+      <button class="submit" id="submitBtn" type="submit">Sign in</button>
+      <div class="form-msg" id="formMsg" role="status"></div>
+      <a class="register" href="register.html">New student? Register</a>
+    </form>
+
+    <p class="foot">&copy; Thebes Technological University</p>
+  </div>
+</main>
+
+<script>
+  const form = document.getElementById('loginForm');
+  const uid = document.getElementById('uid');
+  const pw = document.getElementById('pw');
+  const uidErr = document.getElementById('uidErr');
+  const pwErr = document.getElementById('pwErr');
+  const msg = document.getElementById('formMsg');
+  const btn = document.getElementById('submitBtn');
+  const toggle = document.getElementById('toggle');
+
+  toggle.addEventListener('click', () => {
+    const show = pw.type === 'password';
+    pw.type = show ? 'text' : 'password';
+    toggle.textContent = show ? 'Hide' : 'Show';
+    toggle.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+    toggle.setAttribute('aria-pressed', String(show));
+  });
+
+  function setError(input, el, text) {
+    el.textContent = text;
+    input.setAttribute('aria-invalid', text ? 'true' : 'false');
+  }
+
+  uid.addEventListener('input', () => setError(uid, uidErr, ''));
+  pw.addEventListener('input', () => setError(pw, pwErr, ''));
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.textContent = '';
+    msg.className = 'form-msg';
+
+    const idValue = uid.value.trim();
+    let valid = true;
+
+    if (!idValue) {
+      setError(uid, uidErr, 'Enter your university ID.');
+      valid = false;
+    } else if (!/^\d{14}$/.test(idValue)) {
+      setError(uid, uidErr, 'Your ID must be exactly 14 digits.');
+      valid = false;
+    }
+    if (!pw.value) {
+      setError(pw, pwErr, 'Enter your password.');
+      valid = false;
+    } else if (pw.value.length < 6) {
+      setError(pw, pwErr, 'Password must be at least 6 characters.');
+      valid = false;
+    }
+    if (!valid) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Signing in...';
+
+    try {
+      const res = await fetch('login.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: idValue, password: pw.value, mode })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Wrong ID or password.');
+      msg.textContent = 'Welcome, ' + data.name + '!';
+      msg.classList.add('ok');
+      setTimeout(() => { window.location.href = data.role === 'admin' ? 'admin.php' : 'home.php'; }, 600);
+    } catch (err) {
+      msg.textContent = err instanceof TypeError ? 'Cannot reach the server. Open this page through Laragon (http://localhost/...).' : (err.message || 'Could not sign in. Try again.');
+      msg.classList.add('error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Sign in';
+    }
+  });
+  // University ID: numbers only, up to 14 digits
+  const uidBox = document.getElementById('uid');
+  const arabicDigits = '\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669';
+  // Block letters and symbols the moment they are typed
+  uidBox.addEventListener('beforeinput', (e) => {
+    if (e.data && /[^0-9\u0660-\u0669]/.test(e.data)) e.preventDefault();
+  });
+  // Clean pasted text, turn Arabic digits into 0-9, and stop at 14
+  uidBox.addEventListener('input', (e) => {
+    e.target.value = e.target.value
+      .replace(/[\u0660-\u0669]/g, d => arabicDigits.indexOf(d))
+      .replace(/\D/g, '')
+      .slice(0, 14);
+  });
+  uidBox.addEventListener('drop', (e) => e.preventDefault());
+
+  // Student / Admin tabs
+  let mode = 'student';
+  document.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
+    mode = t.dataset.mode;
+    document.querySelectorAll('.tab').forEach((x) => { x.classList.toggle('act', x === t); x.setAttribute('aria-selected', String(x === t)); });
+    document.querySelector('h1').textContent = mode === 'admin' ? 'Admin login' : 'Student login';
+    document.querySelector('.register').style.display = mode === 'admin' ? 'none' : '';
+    msg.textContent = '';
+  }));
+</script>
+</body>
+</html>
